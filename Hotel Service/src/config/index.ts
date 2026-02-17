@@ -25,8 +25,8 @@ export const serverConfig: ServerConfig = {
 
 export const dbConfig: DBConfig = {
     DB_HOST: process.env.DB_HOST || '127.0.0.1',
-    DB_PORT: Number(process.env.DB_PORT) || 5432,
+    DB_PORT: Number(process.env.DB_PORT) || 3306,
     DB_USER: process.env.DB_USER || 'root',
     DB_PASSWORD: process.env.DB_PASSWORD || 'root',
-    DB_NAME: process.env.DB_NAME || 'app_db',
+    DB_NAME: process.env.DB_NAME || 'airbnb_dev_hotels',
 }
