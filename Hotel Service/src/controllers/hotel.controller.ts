@@ -1,12 +1,13 @@
 import { Request, Response , NextFunction} from "express"
-import { createHotelService, getHotelByIdService } from "../services/hotel.service"
+import { createHotelService, getHotelByIdService, getAllHotelsService, softDeleteHotelService} from "../services/hotel.service"
+import { StatusCodes } from "http-status-codes";
 
 export async function  createHotelHandler(req: Request, res:Response, next :NextFunction){
     //1. call the service layer 
     const hotelResponse = await createHotelService(req.body);
 
     //2. send the response
-    res.status(201).json({
+    res.status(StatusCodes.CREATED).json({
         message: "Hotel Created successfully",
         data:hotelResponse,
         sucess: true
@@ -19,9 +20,46 @@ export async function getHotelByIdHandler(req: Request, res:Response, next: Next
     const hotelResponse = await getHotelByIdService(Number(req.params.id));
 
     //2. Send the response
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
         message: "Hotel found successfully",
         data: hotelResponse,
         success: true,
     })
+}
+
+
+export async function getAllHotelsHandler(req: Request, res: Response, next: NextFunction) {
+
+    // 1. Call the service layer
+
+    const hotelsResponse = await getAllHotelsService();
+
+    // 2. Send the response
+    res.status(StatusCodes.OK).json({
+        message: "Hotels found successfully",
+        data: hotelsResponse,
+        success: true,
+    });
+
+}
+
+export async function deleteHotelHandler(req: Request, res: Response, next: NextFunction) {
+
+    // 1. Call the service layer
+
+    const hotelsResponse = await softDeleteHotelService(Number(req.params.id));
+
+    // 2. Send the response
+    res.status(StatusCodes.OK).json({
+        message: "Hotels deleted successfully",
+        data: hotelsResponse,
+        success: true,
+    });
+    
+}
+
+export async function updateHotelHandler(req: Request, res: Response, next: NextFunction) {
+
+    res.status(StatusCodes.NOT_IMPLEMENTED);
+    
 }

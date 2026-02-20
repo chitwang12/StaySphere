@@ -9,6 +9,10 @@ import sequelize from './db/models/sequelize';
 const app = express();
 
 app.use(express.json());
+app.use((req, res, next) => {
+    console.log("Incoming request:", req.method, req.url);
+    next();
+  });
 
 /**
  * Registering all the routers and their corresponding routes with out app server object.
